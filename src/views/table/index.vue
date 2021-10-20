@@ -66,12 +66,13 @@ export default {
   created() {
     this.fetchData()
   },
+
   methods: {
     fetchData() {
-      this.listLoading = true
+      this.listLoading = false
       getList().then(response => {
-        this.list = response.data.items
-        this.listLoading = false
+        // this.list = response.data.items
+        // this.listLoading = false
       })
     }
   }
