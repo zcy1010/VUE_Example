@@ -1,4 +1,4 @@
-import { login } from '@/api/user'
+import { getInfo, login } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
 
@@ -23,6 +23,9 @@ const mutations = {
   },
   SET_ROLES: (state, roles) => {
     state.roles = roles
+  },
+  SET_ID: (state, Id) => {
+    state.Id = Id
   },
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
@@ -50,26 +53,31 @@ const actions = {
     })
   },
 
-  // // get user info
-  // getInfo({ commit, state }) {
-  //   return new Promise((resolve, reject) => {
-  //     getInfo(state.token).then(response => {
-  //       const { data } = response
-  //
-  //       if (!data) {
-  //         return reject('Verification failed, please Login again.')
-  //       }
-  //
-  //       const { name, avatar } = data
-  //
-  //       commit('SET_NAME', name)
-  //       commit('SET_AVATAR', avatar)
-  //       resolve(data)
-  //     }).catch(error => {
-  //       reject(error)
-  //     })
-  //   })
-  // },
+  // get user info  state.token
+  getInfo({ commit, state }) {
+    return new Promise((resolve, reject) => {
+      console.log('wewe')
+      console.log(state.token)
+      getInfo({ token: state.token }).then(response => {
+        const { data } = response
+        console.log('dddddddd')
+        console.log(data)
+        if (!data) {
+          return reject('Verification failed, please Login again.')
+        }
+
+        // const { name, avatar } = data
+        commit('SET_ROLES', data.roles)
+        commit('SET_ACCOUNT', data.account)
+        commit('SET_ID', data.id)
+        // commit('SET_NAME', name)
+        // commit('SET_AVATAR', avatar)
+        resolve(data)
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
 
   // user logout
   logout({ commit, state }) {
