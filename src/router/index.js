@@ -31,6 +31,7 @@ import Layout from '@/layout'
  * all roles can be accessed
  */
 export const constantRoutes = [
+
   {
     path: '/login',
     component: () => import('@/views/login/index'),
@@ -160,8 +161,28 @@ export const constantRoutes = [
     ]
   },
 
+  {
+    path: '/syslog',
+    component: Layout,
+    meta: {
+      roles: ['ROLE_ADMIN']
+    },
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/syslog/index'),
+        name: 'syslog',
+        meta: { title: '系统日志', icon: 'nested', noCache: true }
+      }
+    ]
+  },
+
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
+]
+
+export const asyncRoutes = [
+
 ]
 
 const createRouter = () => new Router({

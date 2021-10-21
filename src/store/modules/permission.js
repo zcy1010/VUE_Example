@@ -1,5 +1,5 @@
 import { asyncRoutes, constantRoutes } from '@/router'
-//todo
+
 /**
  * Use meta.role to determine if the current user has permission
  * @param roles
@@ -50,7 +50,7 @@ const actions = {
   generateRoutes({ commit }, roles) {
     return new Promise(resolve => {
       let accessedRoutes
-      if (roles.includes('admin')) {
+      if (roles.includes('ROLE_ADMIN')) {
         // accessedRoutes = asyncRoutes || []
         const arr = []
         asyncRoutes.forEach((item) => {
@@ -58,7 +58,7 @@ const actions = {
           if (item.hasOwnProperty('meta')) {
             // eslint-disable-next-line no-prototype-builtins
             if (item.meta.hasOwnProperty('roles')) {
-              if (item.meta.roles.includes('admin')) {
+              if (item.meta.roles.includes('ROLE_ADMIN')) {
                 arr.push(item)
               }
             }

@@ -23,6 +23,7 @@ const mutations = {
   },
   SET_ROLES: (state, roles) => {
     state.roles = roles
+    console.log(roles)
   },
   SET_ID: (state, Id) => {
     state.Id = Id
@@ -67,9 +68,10 @@ const actions = {
         }
 
         // const { name, avatar } = data
-        commit('SET_ROLES', data.roles)
+        // commit('SET_ROLES', data.roles)
         commit('SET_ACCOUNT', data.account)
         commit('SET_ID', data.id)
+        commit('SET_ROLES', data.role)
         // commit('SET_NAME', name)
         // commit('SET_AVATAR', avatar)
         resolve(data)
